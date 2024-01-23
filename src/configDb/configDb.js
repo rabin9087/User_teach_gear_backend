@@ -7,5 +7,4 @@ export const connectMongo = () => {
     } catch (error) {
         console.log(error)
     }
-    
 }

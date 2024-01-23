@@ -3,6 +3,7 @@ import "dotenv/config"
 import cors from 'cors'
 import morgan from 'morgan'
 import { connectMongo } from './src/configDb/configDb.js'
+import routers from './src/routers/all-routers/routers.js'
 
 const app = express()
 const PORT = process.env.PORT || 8800
@@ -13,12 +14,7 @@ app.use(express.json())
 
 connectMongo()
 
-app.use("/", (req, res, next) => {
-    return res.json({
-        status: "success",
-        message: "server is running well"
-    })
-})
+app.use("/",  routers)
 
 app.use("*" , (req, res, next) => {
     return res.json({
