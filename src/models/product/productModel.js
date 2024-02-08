@@ -12,3 +12,7 @@ export const getAllProducts = async () => {
         products, count
     }
 }
+
+export const getAProduct = async (slug) => {
+    return ProductSchema.findOne({slug})
+}
