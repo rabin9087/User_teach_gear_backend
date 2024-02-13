@@ -14,5 +14,9 @@ export const getAllProducts = async () => {
 }
 
 export const getAProduct = async (slug) => {
-    return ProductSchema.findOne({slug})
+    return ProductSchema.findOne({ slug })
+}
+
+export const getAllProductByCatId = async (_id) => {
+    return ProductSchema.find({ parentCatId: _id })
 }
