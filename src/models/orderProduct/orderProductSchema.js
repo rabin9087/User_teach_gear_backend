@@ -1,47 +1,20 @@
 import mongoose, { Schema } from 'mongoose'
 
-const addToCartSchema = new Schema({
-
-    name: {
-        type: String,
+const orderProductSchema = new Schema({
+    address: {
+        type: Object,
         required: true,
     },
-    parentCatId: {
-        type: String,
+    items: {
+        type: Array,
         required: true,
     },
-    slug: {
-        type: String,
-        unique: true,
-        index: 1,
+    pay: {
+        type: Object,
         required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
-
-    salesPrice: {
-        type: Number,
-    },
-    qty: {
-        type: Number,
-        required: true,
-    },
-    salesStartDate: {
-        type: Date,
-    },
-    salesEndDate: {
-        type: Date,
-    },
-    sku: {
-        type: String,
-        unique: true,
-        index: 1,
-        required: true
     },
 }, {
     timestamps: true,
 })
 
-export default mongoose.model()
+export default mongoose.model('order', orderProductSchema)
