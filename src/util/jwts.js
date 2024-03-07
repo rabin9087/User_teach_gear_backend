@@ -1,15 +1,16 @@
 import jwt from 'jsonwebtoken'
 import { createSession } from '../models/session/sessionModel.js'
+import { updateUser } from '../models/user/userModel.js'
 
 export const createAccessJWTTokne = async (email) => {
     const token = jwt.sign({ email }, process.env.ACCESSJWT_SECRET, { expiresIn: '1d' })
-    await createSession({ email, token })
-
+    const user = await createSession({ associate: email, token })
     return token
 }
 
 export const createRefreshJWTTokne = async (email) => {
     const token = jwt.sign({ email }, process.env.REFRESHJWT_SECRET, { expiresIn: "30d" })
+    await updateUser({ email }, { refreshJWT: token })
     return token
 }
 

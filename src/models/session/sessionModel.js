@@ -1,8 +1,8 @@
-import { Schema, model } from 'mongoose'
-const SessionSchema = model('Session', {})
+import SessionSchema from "./sessionSchema.js"
 
-export const createSession = async ({ email, token }) => {
-    return await SessionSchema({ associate: email, token }).save()
+
+export const createSession = async (obj) => {
+    return await SessionSchema(obj).save()
 }
 
 export const getSession = async (filter) => {

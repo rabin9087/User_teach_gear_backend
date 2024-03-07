@@ -1,12 +1,10 @@
-import { Schema, model } from 'mongoose'
-
-const UserSchema = model("User", {})
+import UserSchema from "./userSchema.js"
 
 export const createUser = async (obj) => {
     return await UserSchema(obj).save()
 }
 
-export const updateUSer = async (filter, update) => {
+export const updateUser = async (filter, update) => {
     return await UserSchema.findOneAndUpdate(filter, update, { new: true })
 }
 
