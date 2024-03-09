@@ -5,6 +5,14 @@ const stringType = {
     required: true,
 }
 const orderProductSchema = new Schema({
+    userId: {
+        type: String,
+        default: ""
+    },
+    deliveryStatus: {
+        type: String,
+        default: "Not Delivered Yet"
+    },
     address: {
         email: stringType,
         name: stringType,
@@ -24,6 +32,10 @@ const orderProductSchema = new Schema({
             orderQty: { type: Number, required: true },
             size: { type: String, required: true },
             deliveryStatus: stringType,
+            dispatchedQty: {
+                type: Number,
+                default: 0
+            },
         }
     ],
 
@@ -35,6 +47,10 @@ const orderProductSchema = new Schema({
         type: String,
         required: true,
     },
+    amount: {
+        type: Number,
+        required: true,
+    }
 }, {
     timestamps: true,
 })

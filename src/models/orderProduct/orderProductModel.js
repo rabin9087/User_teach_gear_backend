@@ -12,6 +12,5 @@ export const getAOrder = (filter) => {
 }
 
 export const postNewOrders = (orders) => {
-    console.log(orders)
     return OrderProductSchema(orders).save()
 }

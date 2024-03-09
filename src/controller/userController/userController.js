@@ -1,4 +1,4 @@
-import { createUser, getUserByEmail } from "../../models/user/userModel.js";
+import { createUser, getAUser, getUserByEmail, updateUser } from "../../models/user/userModel.js";
 import { comparePassword, hashPassword } from "../../util/bcrypt.js";
 import { createAccessJWTTokne, getJwts } from "../../util/jwts.js";
 
@@ -46,6 +46,18 @@ export const logInUserController = async (req, res, next) => {
         }
 
 
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const logOutUser = async (req, res, next) => {
+    try {
+        const user = getAUser(req.body)
+        if (user?._id) {
+            await updateUser(req.body, { refreshJWT: "" })
+        }
+        return res.json({ status: "success", message: "User has been LogOut successfully" })
     } catch (error) {
         next(error)
     }

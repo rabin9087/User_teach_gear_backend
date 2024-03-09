@@ -15,7 +15,7 @@ const router = express.Router()
 router.use("/api/v1/users", userRouter)
 router.use("/api/v1/categories", categoryRouter)
 router.use("/api/v1/products", productRouter)
-router.use("/api/v1/addTocart", addToCartRouter)
+router.use("/api/v1/addToCart", addToCartRouter)
 router.use("/api/v1/payment", paymentRouter)
 router.use("/api/v1/orders", orderRouter)
 
