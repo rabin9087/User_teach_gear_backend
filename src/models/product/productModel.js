@@ -4,7 +4,7 @@ const ProductSchema = model('Product', {})
 
 export const getAllProducts = async () => {
     const condition = {
-        slug: { $regex: '', $options: "i" },
+        slug: { $regex: '', $options: "i" }, status: "active"
     }
     const products = await ProductSchema.find(condition).limit(10).skip(0)
     const count = await ProductSchema.countDocuments(condition)
@@ -21,9 +21,9 @@ export const getAProduct = async (slug) => {
     return ProductSchema.findOne({ slug })
 }
 
-export const updateProductQty = (_id, update) => {
-    console.log(_id, update)
-    return ProductSchema.findByIdAndUpdate({ _id }, update)
+export const updateProductQty = (update) => {
+    console.log("this iskxjbscjbsdjc b", update)
+    return ProductSchema.findByIdAndUpdate(update)
 }
 
 export const getAllProductByCatId = async (_id) => {
