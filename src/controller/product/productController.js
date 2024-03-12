@@ -31,23 +31,21 @@ export const getAllProductByID = async (req, res, next) => {
 }
 
 export const updateProduct = async (req, res, next) => {
-
+    console.log("kkhkvjvj", req.body)
     try {
-        console.log("jncsknfvk dfskv k", req.body)
 
-        const updatingProductPromises = await req.body?.items?.map(async ({ _id, orderQty }) => {
-            const product = await getAProdctById(_id);
+        const updatingProductPromises = req.body?.items?.map(async ({ _id, orderQty }) => {
+            const product = await getAProdctById(_id)
             if (product?._id) {
-                console.log("Actual Product:==", product);
                 const updatedQty = product?._doc?.qty - orderQty;
-                const update = await updateProductQty({ _id: product._id, qty: updatedQty });
-                console.log("This is update product", update);
-                return res.json({ status: "success" });
+                const update = await updateProductQty(_id, { qty: updatedQty });
+                console.log("update:", update)
             }
-            return res.json({ status: "error" });;
-        });
 
+
+        });
         await Promise.all(updatingProductPromises);
+        return res.json({ status: "success" });
 
 
     } catch (error) {

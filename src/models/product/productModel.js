@@ -1,6 +1,70 @@
-import { Schema, model } from 'mongoose'
+import mongoose, { Schema, model } from 'mongoose'
+const productSchema = new mongoose.Schema({
+    status: {
+        type: String,
+        default: "inactive",
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    parentCatId: {
+        type: String,
+        required: true,
+    },
+    slug: {
+        type: String,
+        unique: true,
+        index: 1,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
 
-const ProductSchema = model('Product', {})
+    salesPrice: {
+        type: Number,
+    },
+    qty: {
+        type: Number,
+        required: true,
+    },
+    sizes: [
+        {
+            type: String,
+        },
+    ],
+    salesStartDate: {
+        type: Date,
+    },
+    salesEndDate: {
+        type: Date,
+    },
+    sku: {
+        type: String,
+        unique: true,
+        index: 1,
+        required: true
+    },
+
+    description: {
+        type: String,
+        required: true,
+    },
+    thumbnail: {
+        type: String,
+    },
+
+    images: [
+        {
+            type: String,
+        },
+    ],
+}, {
+    timestamps: true,
+})
+const ProductSchema = mongoose.model("Product", productSchema)
 
 export const getAllProducts = async () => {
     const condition = {
@@ -21,10 +85,11 @@ export const getAProduct = async (slug) => {
     return ProductSchema.findOne({ slug })
 }
 
-export const updateProductQty = (update) => {
-    console.log("this iskxjbscjbsdjc b", update)
-    return ProductSchema.findByIdAndUpdate(update)
+export const updateProductQty = async (update, filter) => {
+    console.log("model:", update, filter)
+    return await ProductSchema.findByIdAndUpdate({ _id: update }, filter)
 }
+// updateProductQty('65cacd713e64cdbe3bc2ca68', { qty: 25 })
 
 export const getAllProductByCatId = async (_id) => {
     return ProductSchema.find({ parentCatId: _id })
