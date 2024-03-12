@@ -15,7 +15,6 @@ router.post("/", async (req, res, next) => {
         const orders = await postNewOrders({ ...req.body, deliveryStatus: 'Not delivered yet' })
 
         if (orders?._id) {
-
             return res.status(200).json({
                 status: "success",
                 message: "The items have been successfully ordered",

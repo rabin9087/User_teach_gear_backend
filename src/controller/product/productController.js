@@ -35,7 +35,7 @@ export const updateProduct = async (req, res, next) => {
     try {
         console.log("jncsknfvk dfskv k", req.body)
 
-        const updatingProductPromises = await req.body?.map(async ({ _id, orderQty }) => {
+        const updatingProductPromises = await req.body?.items?.map(async ({ _id, orderQty }) => {
             const product = await getAProdctById(_id);
             if (product?._id) {
                 console.log("Actual Product:==", product);
@@ -47,7 +47,7 @@ export const updateProduct = async (req, res, next) => {
             return res.json({ status: "error" });;
         });
 
-        const updatingProduct = await Promise.all(updatingProductPromises);
+        await Promise.all(updatingProductPromises);
 
 
     } catch (error) {

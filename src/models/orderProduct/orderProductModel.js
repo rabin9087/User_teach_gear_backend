@@ -1,10 +1,8 @@
 import OrderProductSchema from "./orderProductSchema.js"
 
 
-export const getOrders = async () => {
-    const orders = await OrderProductSchema.find().populate('items._id')
-
-    return orders
+export const getOrders = () => {
+    return OrderProductSchema.find().populate('items._id')
 }
 
 export const getAOrder = (filter) => {
