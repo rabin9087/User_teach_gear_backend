@@ -97,3 +97,7 @@ export const getAllProductByCatId = async (_id) => {
 export const getAProductBySlug = async (carousel) => {
     return ProductSchema.findOne({ name: carousel })
 }
+
+export const getACatIdOfProductBySlug = async (slug) => {
+    return ProductSchema.findOne({ slug })
+}

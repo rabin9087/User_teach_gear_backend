@@ -1,5 +1,5 @@
 import { getACategoriesBySlug } from "../../models/category/categoryModel.js"
-import { getAProduct, getAllProducts, getAllProductByCatId, getAProdctById, updateProductQty } from "../../models/product/productModel.js"
+import { getAProduct, getAllProducts, getAllProductByCatId, getAProdctById, updateProductQty, getAProductBySlug, getACatIdOfProductBySlug } from "../../models/product/productModel.js"
 
 export const getAllProductController = async (req, res, next) => {
     try {
@@ -20,6 +20,7 @@ export const getAllProductBySlugController = async (req, res, next) => {
         const { slug } = req.params
         console.log("this is slug: ", slug)
         const cat = await getACategoriesBySlug(slug)
+        console.log("Cat", cat)
         if (cat?._id) {
             const products = await getAllProductByCatId(cat._id)
             res.status(200).json({
@@ -30,7 +31,34 @@ export const getAllProductBySlugController = async (req, res, next) => {
         } else {
             res.status(200).json({
                 status: "error",
-                message: `No Products available for ${slug} slug`,
+                message: `No Products available for ${cat?.name} slug`,
+
+            })
+        }
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getAllProductByForProductsSlugController = async (req, res, next) => {
+    try {
+        const { slug } = req.params
+        console.log("this is slug: ", slug)
+        const aProduct = await getACatIdOfProductBySlug(slug)
+        if (aProduct?._id) {
+            const products = await getAllProductByCatId(aProduct.parentCatId)
+            res.status(200).json({
+                status: "success",
+                message: "Here is all Products",
+                products
+            })
+
+
+        } else {
+            res.status(200).json({
+                status: "error",
+                message: `No Products available for ${cat?.name} slug`,
 
             })
         }
