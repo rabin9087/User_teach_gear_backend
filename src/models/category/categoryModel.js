@@ -7,3 +7,8 @@ export const getAllCategories = async () => {
     return categories
 }
 
+export const getACategoriesBySlug = async (slug) => {
+    return await CategorySchema.findOne({ slug })
+
+}
+

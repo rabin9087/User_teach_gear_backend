@@ -89,8 +89,11 @@ export const updateProductQty = async (update, filter) => {
     console.log("model:", update, filter)
     return await ProductSchema.findByIdAndUpdate({ _id: update }, filter)
 }
-// updateProductQty('65cacd713e64cdbe3bc2ca68', { qty: 25 })
 
 export const getAllProductByCatId = async (_id) => {
     return ProductSchema.find({ parentCatId: _id })
+}
+
+export const getAProductBySlug = async (carousel) => {
+    return ProductSchema.findOne({ name: carousel })
 }

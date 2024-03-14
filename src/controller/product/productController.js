@@ -1,3 +1,4 @@
+import { getACategoriesBySlug } from "../../models/category/categoryModel.js"
 import { getAProduct, getAllProducts, getAllProductByCatId, getAProdctById, updateProductQty } from "../../models/product/productModel.js"
 
 export const getAllProductController = async (req, res, next) => {
@@ -9,6 +10,31 @@ export const getAllProductController = async (req, res, next) => {
             message: "Here is all Products",
             products
         })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getAllProductBySlugController = async (req, res, next) => {
+    try {
+        const { slug } = req.params
+        console.log("this is slug: ", slug)
+        const cat = await getACategoriesBySlug(slug)
+        if (cat?._id) {
+            const products = await getAllProductByCatId(cat._id)
+            res.status(200).json({
+                status: "success",
+                message: "Here is all Products",
+                products
+            })
+        } else {
+            res.status(200).json({
+                status: "error",
+                message: `No Products available for ${slug} slug`,
+
+            })
+        }
+
     } catch (error) {
         next(error)
     }
