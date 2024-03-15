@@ -68,7 +68,7 @@ export const getAllProductByForProductsSlugController = async (req, res, next) =
     }
 }
 
-export const getAllProductByID = async (req, res, next) => {
+export const getAllProductByIDController = async (req, res, next) => {
     try {
         const { _id } = req.params
 
@@ -84,8 +84,23 @@ export const getAllProductByID = async (req, res, next) => {
     }
 }
 
+export const getAProductByIDController = async (req, res, next) => {
+    try {
+        const { _id } = req.params
+
+        const products = await getAProdctById(_id)
+
+        res.status(200).json({
+            status: "success",
+            message: "Here is a Product",
+            products
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 export const updateProduct = async (req, res, next) => {
-    console.log("kkhkvjvj", req.body)
     try {
 
         const updatingProductPromises = req.body?.items?.map(async ({ _id, orderQty }) => {
