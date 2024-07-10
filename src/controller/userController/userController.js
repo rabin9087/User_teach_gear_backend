@@ -30,12 +30,15 @@ export const newUserController = async (req, res, next) => {
 export const logInUserController = async (req, res, next) => {
     try {
         const { email, password } = req.body
-
+        
         const user = await getUserByEmail(email)
+        
         if (user?._id) {
             const isPasswordMatch = comparePassword(password, user.password)
+            console.log("dathxaxjk",isPasswordMatch)
             if (isPasswordMatch) {
                 const jwts = await getJwts(email)
+                console.log(jwts)
                 user.password = undefined
                 return res.json({ status: "success", message: "You have been successfully logged In", user, jwts })
             }
